@@ -1,6 +1,6 @@
-pip install requests
-pip install pycrypto
-pip install gym
-pip install stable-baselines3
-pip install python-dotenv
-pip install 'shimmy>=2.0'
+requests
+pycrypto
+gym
+stable-baselines3
+python-dotenv
+'shimmy>=2.0'
