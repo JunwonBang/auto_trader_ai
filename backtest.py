@@ -1,15 +1,10 @@
 import bitget.bitget_api as baseApi
 from bitget.exceptions import BitgetAPIException
-
 from stable_baselines3 import PPO
-
 import pandas as pd
 import numpy as np
-
 import matplotlib.pyplot as plt
-
 from train import TradingEnv
-
 from dotenv import load_dotenv
 import os
 
@@ -40,21 +35,20 @@ def fetch_ohlcv(symbol, productType, granularity, limit):
         print("error:" + e.message)
 
 if __name__ == '__main__':
+    gran = '30m'
+    total_timesteps = 10000
+
     load_dotenv()
     baseApi = baseApi.BitgetApi(os.environ.get('apiKey'), os.environ.get('secretKey'), os.environ.get('passphrase'))
-    df = fetch_ohlcv('SBTCSUSDT', 'SUSDT-FUTURES', '1m', '1000')
-
+    df = fetch_ohlcv('SBTCSUSDT', 'SUSDT-FUTURES', gran, '1000')
     env = TradingEnv(df)
     obs = env.reset()
-
-    total_timesteps = 10000
-    model = PPO.load(f"./models/ppo_trading_model_{total_timesteps}")
+    model = PPO.load(f"./models/ppo_trading_model_{gran}_{total_timesteps}")
     
     timesteps = []
     rewards = []
     timestep = 0
     total_reward = 0
-
     while True:
         action, _states = model.predict(obs)
         obs, reward, done, _ = env.step(action)
@@ -73,4 +67,4 @@ if __name__ == '__main__':
     plt.ylabel('Total Reward')
     plt.title('Backtest Reward over Time')
     plt.legend()
-    plt.savefig(f'./backtest_results/cumulative_reward_{total_timesteps}')
+    plt.savefig(f'./backtest_results/cumulative_reward_{gran}_{total_timesteps}')
