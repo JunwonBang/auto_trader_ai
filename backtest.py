@@ -35,7 +35,7 @@ def fetch_ohlcv(symbol, productType, granularity, limit):
         print("error:" + e.message)
 
 if __name__ == '__main__':
-    gran = '30m'
+    gran = '1H'
     total_timesteps = 10000
 
     load_dotenv()
