@@ -80,7 +80,7 @@ class TradingEnv(gym.Env):
         return self._next_observation(), reward, done, {}
 
 if __name__ == '__main__':
-    gran = '30m'
+    gran = '1H'
     total_timesteps = 10000
 
     df = pd.read_csv(f'./dataset/dataset_{gran}.csv')

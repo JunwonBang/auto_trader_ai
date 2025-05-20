@@ -38,8 +38,8 @@ def add_index(df):
 
 if __name__ == '__main__':
     startTime = str(int(datetime(2024, 12, 1, 0, 0).timestamp())*1000)
-    endTime = str(int(datetime(2025, 2, 1, 0, 0).timestamp())*1000)
-    gran = '30m'
+    endTime = str(int(datetime(2025, 1, 1, 0, 0).timestamp())*1000)
+    gran = '1m'
 
     load_dotenv()
     baseApi = baseApi.BitgetApi(os.environ.get('apiKey'), os.environ.get('secretKey'), os.environ.get('passphrase'))
