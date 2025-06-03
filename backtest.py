@@ -7,48 +7,60 @@ import matplotlib.pyplot as plt
 from train import TradingEnv
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
-def fetch_ohlcv(symbol, productType, granularity, limit):
+def get_historical_candlestick(symbol, productType, endTime):
     try:
         params={}
         params['symbol'] = symbol
         params['productType'] = productType
-        params['granularity'] = granularity
-        params['limit'] = limit
-        data = baseApi.get('/api/v2/mix/market/candles', params)['data']
-        df = pd.DataFrame(data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'volume_currency']).astype(np.float32)
-        df.drop('volume_currency', axis=1, inplace=True)
-        delta = df['close'].diff()
-        gain = (delta.where(delta > 0, 0)).rolling(window=20).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(window=20).mean()
-        rs = gain / loss
-        df['rsi'] = 100 - (100 / (1 + rs))
-        df['sma'] = df['close'].rolling(window=14).mean()
-        df["ema_12"] = df["close"].ewm(span=12, adjust=False).mean()
-        df["ema_26"] = df["close"].ewm(span=26, adjust=False).mean()
-        df["macd"] = df["ema_12"] - df["ema_26"]
-        df["macd_signal"] = df["macd"].ewm(span=9, adjust=False).mean()
-        df = df.replace(' ', pd.NA)
-        df = df.dropna()
-        return df
+        params['granularity'] = '1m'
+        params['endTime'] = endTime
+        params['limit'] = '200'
+        data = baseApi.get('/api/v2/mix/market/history-candles', params)['data']
+        for i in range(len(data)):
+            del data[i][-1]
+        return data
     except BitgetAPIException as e:
         print("error:" + e.message)
 
+def add_index(df):
+    delta = df['close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=20).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=20).mean()
+    rs = gain / loss
+    df['rsi'] = 100 - (100 / (1 + rs))
+    df['sma'] = df['close'].rolling(window=14).mean()
+    df["ema_12"] = df["close"].ewm(span=12, adjust=False).mean()
+    df["ema_26"] = df["close"].ewm(span=26, adjust=False).mean()
+    df["macd"] = df["ema_12"] - df["ema_26"]
+    df["macd_signal"] = df["macd"].ewm(span=9, adjust=False).mean()
+    df = df.replace(' ', pd.NA)
+    df = df.dropna()
+    return df
+
 if __name__ == '__main__':
-    gran = '1m'
-    total_timesteps = 10000
+    start_time = str(int(datetime(2025, 4, 1).timestamp()*1000))
+    end_time = str(int(datetime(2025, 5, 1).timestamp()*1000))
 
     load_dotenv()
-    baseApi = baseApi.BitgetApi(os.environ.get('apiKey'), os.environ.get('secretKey'), os.environ.get('passphrase'))
-    df = fetch_ohlcv('SBTCSUSDT', 'SUSDT-FUTURES', gran, '1000')
+    baseApi = baseApi.BitgetApi(os.environ.get('api_key'), os.environ.get('secret_key'), os.environ.get('passphrase'))
+    time = end_time
+    data = []
+    while time > start_time:
+        data = get_historical_candlestick('BTCUSDT', 'USDT-FUTURES', time) + data
+        time = data[0][0]
+    df = pd.DataFrame(data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume']).astype(np.float32)
+    df = add_index(df)
+
     env = TradingEnv(df)
-    obs = env.reset()
-    model = PPO.load(f"./models/ppo_trading_model_{gran}_{total_timesteps}")
+    model = PPO.load(f"./models/ppo")
     
-    timesteps = []
-    rewards = []
+    obs = env.reset()
     timestep = 0
+    timesteps = []
     total_reward = 0
+    rewards = []
     while True:
         action, _states = model.predict(obs)
         obs, reward, done, _ = env.step(action)
@@ -67,4 +79,4 @@ if __name__ == '__main__':
     plt.ylabel('Total Reward')
     plt.title('Backtest Reward over Time')
     plt.legend()
-    plt.savefig(f'./backtest_results/cumulative_reward_{gran}_{total_timesteps}')
+    plt.savefig(f'./backtest_results/cumulative_reward')

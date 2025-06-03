@@ -6,14 +6,14 @@ import numpy as np
 from datetime import datetime
 import os
 
-def fetch_historical_ohlcv(symbol, productType, granularity, endTime, limit):
+def get_historical_candlestick(symbol, productType, endTime):
     try:
         params={}
         params['symbol'] = symbol
         params['productType'] = productType
-        params['granularity'] = granularity
+        params['granularity'] = '1m'
         params['endTime'] = endTime
-        params['limit'] = limit
+        params['limit'] = '200'
         data = baseApi.get('/api/v2/mix/market/history-candles', params)['data']
         for i in range(len(data)):
             del data[i][-1]
@@ -37,17 +37,16 @@ def add_index(df):
     return df
 
 if __name__ == '__main__':
-    startTime = str(int(datetime(2024, 12, 1, 0, 0).timestamp())*1000)
-    endTime = str(int(datetime(2025, 1, 1, 0, 0).timestamp())*1000)
-    gran = '1m'
+    start_time = str(int(datetime(2025, 4, 1).timestamp()*1000))
+    end_time = str(int(datetime(2025, 5, 1).timestamp()*1000))
 
     load_dotenv()
-    baseApi = baseApi.BitgetApi(os.environ.get('apiKey'), os.environ.get('secretKey'), os.environ.get('passphrase'))
-    time = endTime
+    baseApi = baseApi.BitgetApi(os.environ.get('api_key'), os.environ.get('secret_key'), os.environ.get('passphrase'))
+    time = end_time
     data = []
-    while startTime < time:
-        data = fetch_historical_ohlcv('SBTCSUSDT', 'SUSDT-FUTURES', gran, time, '200') + data
+    while time > start_time:
+        data = get_historical_candlestick('BTCUSDT', 'USDT-FUTURES', time) + data
         time = data[0][0]
     df = pd.DataFrame(data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume']).astype(np.float32)
     df = add_index(df)
-    df.to_csv(f'./dataset/dataset_{gran}.csv')
+    df.to_csv(f'./dataset/data.csv')

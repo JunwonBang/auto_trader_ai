@@ -1,16 +1,14 @@
 CREAT VIRTUAL ENV BEFORE DOING THAT!!!
 
 duration
-    not really relative, so 1m is the best option
+    not really relative, so '1m' is the best option
 
 # of data
-    1m: 1 month
-    approx. 35000 -> 
+    '1m', 20250401-20250501 -> about 40000 data
     
-
 trainig steps
-    10000 -> 100000 -> 1000000
+    100000
 
 data preprocessing
 
-algorithm(step function)
+algorithm(sup learning + unsup learning + rl(step func) + rule based)

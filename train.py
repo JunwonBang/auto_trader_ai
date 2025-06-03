@@ -8,12 +8,15 @@ class TradingEnv(gym.Env):
         super(TradingEnv, self).__init__()
         self.df = df
         self.current_step = 0
+        
+        # Action space: 0=HOLD, 1=OPEN LONG, 2=OPEN SHORT, 3=CLOSE
         self.action_space = gym.spaces.Discrete(4)
         self.observation_space = gym.spaces.Box(low=-np.inf, high=np.inf, shape=(11, ), dtype=np.float32)
 
         self.quantity = 0.001
         self.trading_fee = 0.0006
         self.leverage = 10
+
         self.current_position = None
         self.entry_price = None
         self.liquidation_price = None
@@ -66,13 +69,13 @@ class TradingEnv(gym.Env):
 
         # MARGIN CALL
         if self.current_position == "long" and current_price <= self.liquidation_price:
-            reward = -self.entry_price*self.quantity
+            reward = -self.entry_price * self.quantity
             self.current_position = None
             self.entry_price = None
             self.liquidation_price = None
         
         if self.current_position == "short" and current_price >= self.liquidation_price:
-            reward = -self.entry_price*self.quantity
+            reward = -self.entry_price * self.quantity
             self.current_position = None
             self.entry_price = None
             self.liquidation_price = None
@@ -80,10 +83,7 @@ class TradingEnv(gym.Env):
         return self._next_observation(), reward, done, {}
 
 if __name__ == '__main__':
-    gran = '1m'
-    total_timesteps = 10000
-
-    df = pd.read_csv(f'./dataset/dataset_{gran}.csv')
+    df = pd.read_csv(f'./dataset/data.csv')
     env = TradingEnv(df)
     model = PPO(
         "MlpPolicy", 
@@ -99,5 +99,5 @@ if __name__ == '__main__':
         vf_coef=0.5,
         max_grad_norm=0.5
     )
-    model.learn(total_timesteps=total_timesteps)
-    model.save(f"./models/ppo_trading_model_{gran}_{total_timesteps}")
+    model.learn(total_timesteps=100000)
+    model.save(f"./models/ppo")
