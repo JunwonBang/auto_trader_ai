@@ -83,7 +83,7 @@ class TradingEnv(gym.Env):
         return self._next_observation(), reward, done, {}
 
 if __name__ == '__main__':
-    df = pd.read_csv(f'./dataset/data.csv')
+    df = pd.read_csv(f'./dataset/data_20250301_20250501.csv')
     env = TradingEnv(df)
     model = PPO(
         "MlpPolicy", 

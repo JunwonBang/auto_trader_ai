@@ -4,10 +4,11 @@ duration
     not really relative, so '1m' is the best option
 
 # of data
-    '1m', 20250401-20250501 -> about 40000 data
+    20250401-20250501 -> about 45000 data
+    20250301-20250501 -> about 90000 data
     
 trainig steps
-    100000
+    100k might be the best(experimental)
 
 data preprocessing
 

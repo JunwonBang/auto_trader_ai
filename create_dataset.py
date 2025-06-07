@@ -37,7 +37,7 @@ def add_index(df):
     return df
 
 if __name__ == '__main__':
-    start_time = str(int(datetime(2025, 4, 1).timestamp()*1000))
+    start_time = str(int(datetime(2025, 3, 1).timestamp()*1000))
     end_time = str(int(datetime(2025, 5, 1).timestamp()*1000))
 
     load_dotenv()
@@ -49,4 +49,7 @@ if __name__ == '__main__':
         time = data[0][0]
     df = pd.DataFrame(data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume']).astype(np.float32)
     df = add_index(df)
-    df.to_csv(f'./dataset/data.csv')
+
+    filename_start_date = datetime.fromtimestamp(int(start_time)/1000).strftime('%Y%m%d')
+    filename_end_date = datetime.fromtimestamp(int(end_time)/1000).strftime('%Y%m%d')
+    df.to_csv(f'./dataset/data_{filename_start_date}_{filename_end_date}.csv')
