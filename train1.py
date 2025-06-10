@@ -11,7 +11,12 @@ class TradingEnv(gym.Env):
         
         # Action space: 0=HOLD, 1=OPEN LONG, 2=OPEN SHORT, 3=CLOSE
         self.action_space = gym.spaces.Discrete(4)
-        self.observation_space = gym.spaces.Box(low=-np.inf, high=np.inf, shape=(11, ), dtype=np.float32)
+        self.observation_space = gym.spaces.Box(
+            low=-np.inf, 
+            high=np.inf, 
+            shape=(11, ), 
+            dtype=np.float32
+        )
 
         self.quantity = 0.001
         self.trading_fee = 0.0006
@@ -29,7 +34,11 @@ class TradingEnv(gym.Env):
         return self._next_observation()
     
     def _next_observation(self):
-        obs = self.df.iloc[self.current_step][['open', 'high', 'low', 'close', 'volume', 'rsi', 'sma', 'ema_12', 'ema_26', 'macd', 'macd_signal']].values
+        obs = self.df.iloc[self.current_step][
+            ['open', 'high', 'low', 'close', 'volume', 
+             'rsi', 'sma', 'ema_12', 'ema_26', 'macd', 
+             'macd_signal']
+        ].values
         return obs.astype(np.float32)
     
     def step(self, action):
@@ -100,4 +109,4 @@ if __name__ == '__main__':
         max_grad_norm=0.5
     )
     model.learn(total_timesteps=100000)
-    model.save(f"./models/ppo")
+    model.save(f"./models/ppo1")

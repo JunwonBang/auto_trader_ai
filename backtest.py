@@ -1,12 +1,9 @@
 import bitget.bitget_api as baseApi
-from bitget.exceptions import BitgetAPIException
 from stable_baselines3 import PPO
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from train import TradingEnv
-from datetime import datetime
-import os
+from train1 import TradingEnv
 
 def run_backtest(env, model):
     obs = env.reset()
@@ -31,7 +28,7 @@ def run_backtest(env, model):
 if __name__ == '__main__':
     df = pd.read_csv(f'./dataset/data_20250401_20250501.csv')
     env = TradingEnv(df)
-    model = PPO.load(f"./models/ppo")
+    model = PPO.load(f"./models/ppo1")
     
     n_runs = 10
     all_timesteps = []
@@ -63,5 +60,5 @@ if __name__ == '__main__':
     plt.ylabel('Cumulative Rewards')
     plt.legend()
     
-    plt.savefig(f'./backtest_results/cumulative_rewards.png')
+    plt.savefig(f'./backtest_results/cumulative_rewards1.png')
     plt.close()
