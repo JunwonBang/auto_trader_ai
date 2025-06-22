@@ -11,5 +11,12 @@ trainig steps
     100k might be the best(experimental)
 
 data preprocessing
+    ohlcv + rsi, sma, ema_12, ema_26, macd, macd signal
 
 algorithm(sup learning + unsup learning + rl(step func) + rule based)
+    RL
+        model: PPO, 
+        step function: 정직하게 수익 모델 작성, 
+    SUP
+    UNSUP
+    Rule based
