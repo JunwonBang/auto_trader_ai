@@ -3,4 +3,4 @@ pycrypto
 gym
 stable-baselines3
 python-dotenv
-'shimmy>=2.0'
+shimmy>=2.0
