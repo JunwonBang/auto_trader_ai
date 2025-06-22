@@ -14,9 +14,16 @@ data preprocessing
     ohlcv + rsi, sma, ema_12, ema_26, macd, macd signal
 
 algorithm(sup learning + unsup learning + rl(step func) + rule based)
+<<<<<<< HEAD
     RL
         model: PPO, 
         step function: 정직하게 수익 모델 작성, 
     SUP
     UNSUP
     Rule based
+=======
+
+TODO:
+    finRL 공부
+    다른 참고자료 챗지피티에게 물어보고 공부
+>>>>>>> 80d58fc1ea9305f69e12cc607ff6c64418d2aeb1
