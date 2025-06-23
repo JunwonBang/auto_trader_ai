@@ -24,3 +24,6 @@ algorithm(sup learning + unsup learning + rl(step func) + rule based)
 TODO:
     finRL 공부
     다른 참고자료 챗지피티에게 물어보고 공부
+
+
+bbbbb
