@@ -46,49 +46,6 @@ from the Bitget API with 1-minute granularity
 - Load the trained model from `/models`
 - Run live trading
 
-## Directory Structure
-auto_trader_ai/
-
-│
-
-├── README.md
-
-├── create_dataset.py
-
-├── train.py
-
-├── backtest.py
-
-├── trade.py
-
-│
-
-├── /dataset
-
-│   └── data_20250301_20250501.csv
-
-│   └── data_20250501_20250601.csv
-
-│
-
-├── /models
-
-│   └── ppo.zip
-
-│
-
-├── /backtest_results
-
-│   └── cumulative_rewards.png
-
-|
-
-├── /bitget
-
-│
-
-└── requirements.txt
-
 ## Example Workflow
 ### Step 1: Create dataset
 python create_dataset.py
