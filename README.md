@@ -19,7 +19,16 @@ How the code works
    Change 'start_time' and 'end_time' to adjust the period of dataset.
    Change params['granularity'] in get_historical_candlestick function to change granularity.
 
-2. 
+2. train.py
+   Load dataset from /dataset
+
+   Save trained model to /models
+
+3. backtest.py
+
+   Save results to /backtest_results
+
+4. trade.py
    
    
    

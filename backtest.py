@@ -3,7 +3,7 @@ from stable_baselines3 import PPO
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from train1 import TradingEnv
+from train import TradingEnv
 
 def run_backtest(env, model):
     obs = env.reset()
@@ -26,9 +26,9 @@ def run_backtest(env, model):
     return timesteps, rewards
 
 if __name__ == '__main__':
-    df = pd.read_csv(f'./dataset/data_20250401_20250501.csv')
+    df = pd.read_csv(f'./dataset/data_20250501_20250601.csv')
     env = TradingEnv(df)
-    model = PPO.load(f"./models/ppo1")
+    model = PPO.load(f"./models/ppo")
     
     n_runs = 10
     all_timesteps = []
@@ -60,5 +60,5 @@ if __name__ == '__main__':
     plt.ylabel('Cumulative Rewards')
     plt.legend()
     
-    plt.savefig(f'./backtest_results/cumulative_rewards1.png')
+    plt.savefig(f'./backtest_results/cumulative_rewards.png')
     plt.close()
