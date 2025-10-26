@@ -1,7 +1,7 @@
 # Cryptocurrency automatic future trading system using Bitget API and Reinforcement Learning
 
 ## Preparation
-- ### Create a '.env' file in the project root directory and add your Bitget API credentials.
+- ### Create a `'.env'` file in the project root directory and add your Bitget API credentials.
 e.g.,
 ```
 api_key='your_api_key'
@@ -18,12 +18,15 @@ passphrase='your_passphrase'
 
 ## How the code works
 ### 1. create_dataset.py
-
-Get historical candlestick data(open, high, low, close, volume) of BTC-USDT Future with 1 minute granularity from Bitget.
-
-Add indices such as rsi, sma, ema, macd, macd signal.
-
-Save csv file to /dataset .
+- Fetches historical candlestick data (open, high, low, close, volume) for BTC-USDT Futures
+from the Bitget API with 1-minute granularity
+- Calculates key technical indicators:
+    - RSI (Relative Strength Index)
+    - SMA (Simple Moving Average)
+    - EMA (Exponential Moving Average)
+    - MACD (Moving Average Convergence Divergence)
+    - MACD Signal
+- Save the dataset as a csv file under /dataset
    
 
 Change 'start_time' and 'end_time' to adjust the period of dataset.
