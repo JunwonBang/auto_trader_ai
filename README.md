@@ -47,10 +47,10 @@ from the Bitget API with 1-minute granularity
 - Run live trading
 
 ## Example Workflow
-`python create_dataset.py`
+Step 1: `python create_dataset.py`
 
-`python train.py`
+Step 2: `python train.py`
 
-`python backtest.py`
+Step 3: `python backtest.py`
 
-`python trade.py`
+Step 4: `python trade.py`
