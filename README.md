@@ -1,4 +1,4 @@
-Cryptocurrency automatic future trading system using Bitget API and Reinforcement Learning
+**Cryptocurrency automatic future trading system** using **Bitget API** and **Reinforcement Learning**
 
 Preparation
 1. Add .env file with 'api_key', 'secret_key', 'passphrase' which can be obtained from Bitget account.
