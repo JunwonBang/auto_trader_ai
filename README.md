@@ -8,7 +8,7 @@ api_key='your_api_key'
 secret_key='your_secret_key'
 passphrase='your_passphrase'
 ```
-### Create virtual environment & Install dependencies.
+- ### Create virtual environment & Install dependencies.
 
 `python3 -m venv <name of the virtual environment>`
 
