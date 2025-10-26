@@ -18,6 +18,7 @@ passphrase='your_passphrase'
 
 ## How the code works
 1. create_dataset.py
+
 Get historical candlestick data(open, high, low, close, volume) of BTC-USDT Future with 1 minute granularity from Bitget.
 Add indices such as rsi, sma, ema, macd, macd signal.
 Save csv file to /dataset .
