@@ -1,7 +1,7 @@
 # Cryptocurrency automatic future trading system using Bitget API and Reinforcement Learning
 
 ## Preparation
-- ### Create a `'.env'` file in the project root directory and add your Bitget API credentials.
+- ### Create a `.env` file in the project root directory and add your Bitget API credentials.
 e.g.,
 ```
 api_key='your_api_key'
