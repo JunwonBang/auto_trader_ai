@@ -47,14 +47,10 @@ from the Bitget API with 1-minute granularity
 - Run live trading
 
 ## Example Workflow
-### Step 1: Create dataset
-python create_dataset.py
+`python create_dataset.py`
 
-### Step 2: Train RL model
-python train.py
+`python train.py`
 
-### Step 3: Backtest strategy
-python backtest.py
+`python backtest.py`
 
-### Step 4: Run live trading (paper trading recommended)
-python trade.py
+`python trade.py`
