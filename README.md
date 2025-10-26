@@ -26,17 +26,14 @@ from the Bitget API with 1-minute granularity
     - EMA (Exponential Moving Average)
     - MACD (Moving Average Convergence Divergence)
     - MACD Signal
-- Save the dataset as a csv file under /dataset
-   
-
-Change 'start_time' and 'end_time' to adjust the period of dataset.
-
-Change params['granularity'] in get_historical_candlestick function to change granularity.
+- Save the dataset as a `.csv` file under `/dataset`.
+Adjustment
+- Change start_time and end_time to modify the data period
+- Modify `params['granularity']` in `get_historical_candlestick()` to change time intervals.
 
 ### 2. train.py
-Load dataset from /dataset
-
-Save trained model to /models
+- Load dataset from /dataset
+- Save trained model to /models
 
 ### 3. backtest.py
 Save results to /backtest_results
