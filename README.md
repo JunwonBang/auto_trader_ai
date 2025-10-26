@@ -16,7 +16,7 @@ passphrase='your_passphrase'
 
 `pip install -r requirements.txt`
 
-## How the code works
+## How It Works
 ### 1. create_dataset.py
 - Fetches historical candlestick data (open, high, low, close, volume) for BTC-USDT Futures
 from the Bitget API with 1-minute granularity
@@ -28,18 +28,56 @@ from the Bitget API with 1-minute granularity
     - MACD Signal
 - Save the dataset as a `.csv` file under `/dataset`.
 
-#### Adjustment
-- Change start_time and end_time to modify the data period
+#### Adjustments
+- Change start_time and end_time to modify the data period.
 - Modify `params['granularity']` in `get_historical_candlestick()` to change time intervals.
 
 ### 2. train.py
-- Load dataset from /dataset
-- Save trained model to /models
+- Load dataset from `/dataset`
+- Train a reinforcement learning model
+- Save the trained model to `/models`
 
 ### 3. backtest.py
-Save results to /backtest_results
+- Load the trained model from `/models`
+- Run backtesting
+- Save results to `/backtest_results`
 
 ### 4. trade.py
-   
-   
-   
+- Load the trained model from `/models`
+- Run live trading
+
+## Directory Structure
+auto_trader_ai/
+│
+├── README.md
+├── create_dataset.py
+├── train.py
+├── backtest.py
+├── trade.py
+│
+├── /dataset
+│   └── data_20250301_20250501.csv
+│   └── data_20250501_20250601.csv
+│
+├── /models
+│   └── ppo.zip
+│
+├── /backtest_results
+│   └── cumulative_rewards.png
+|
+├── /bitget
+│
+└── requirements.txt
+
+## Example Workflow
+# Step 1: Create dataset
+python create_dataset.py
+
+# Step 2: Train RL model
+python train.py
+
+# Step 3: Backtest strategy
+python backtest.py
+
+# Step 4: Run live trading (paper trading recommended)
+python trade.py
