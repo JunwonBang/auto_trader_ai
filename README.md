@@ -27,7 +27,8 @@ from the Bitget API with 1-minute granularity
     - MACD (Moving Average Convergence Divergence)
     - MACD Signal
 - Save the dataset as a `.csv` file under `/dataset`.
-Adjustment
+
+#### Adjustment
 - Change start_time and end_time to modify the data period
 - Modify `params['granularity']` in `get_historical_candlestick()` to change time intervals.
 
