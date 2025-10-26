@@ -1,14 +1,14 @@
 # Cryptocurrency automatic future trading system using Bitget API and Reinforcement Learning
 
 ## Preparation
-1. Create .env file with 'api_key', 'secret_key', 'passphrase' which can be obtained from your Bitget account.
+### 1. Create .env file with 'api_key', 'secret_key', 'passphrase' which can be obtained from your Bitget account.
 e.g.
 ```
 api_key='your_api_key'
 secret_key='your_secret_key'
 passphrase='your_passphrase'
 ```
-2. Create virtual environment and install requirements.
+### 2. Create virtual environment and install requirements.
 
 `python3 -m venv <name of the virtual environment>`
 
@@ -17,7 +17,7 @@ passphrase='your_passphrase'
 `pip install -r requirements.txt`
 
 ## How the code works
-1. create_dataset.py
+### 1. create_dataset.py
 
 Get historical candlestick data(open, high, low, close, volume) of BTC-USDT Future with 1 minute granularity from Bitget.
 Add indices such as rsi, sma, ema, macd, macd signal.
