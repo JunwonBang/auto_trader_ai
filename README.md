@@ -57,3 +57,4 @@ Step 4: `python trade.py`
 
 ## Author
 Jude (Junwon) Bang
+jude.bang@mail.utoronto.ca
