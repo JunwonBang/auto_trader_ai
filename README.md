@@ -54,3 +54,6 @@ Step 2: `python train.py`
 Step 3: `python backtest.py`
 
 Step 4: `python trade.py`
+
+## Author
+Jude (Junwon) Bang
